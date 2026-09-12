@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gospel of Luke — Catechism Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2E7CC;
+    --panel:#FBF6E8;
+    --panel-2:#F1E4C4;
+    --line:rgba(122,53,33,0.25);
+    --gold:#8A6A22;
+    --gold-bright:#7A2331;
+    --cream:#2E2016;
+    --muted:#8C7A63;
+    --sage:#4B6B4E;
+    --clay:#B24632;
+    --amber:#B8790E;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 50% -10%, rgba(255,252,240,0.6), transparent 55%),
+      radial-gradient(ellipse at 50% 115%, rgba(90,60,30,0.10), transparent 60%),
+      var(--bg);
+    color:var(--cream);
+    font-family:'Karla', sans-serif;
+    min-height:100vh;
+  }
+  h1,h2,h3,.serif{font-family:'Spectral', serif;}
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px;border-bottom:1px solid var(--line);
+    background:rgba(251,246,232,0.88);backdrop-filter:blur(6px);
+    position:sticky;top:0;z-index:50;flex-wrap:wrap;gap:10px;
+  }
+  .brand{display:flex;align-items:baseline;gap:10px;}
+  .logo-slot{
+    align-self:center;width:40px;height:40px;border-radius:4px;flex-shrink:0;
+    border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;
+    cursor:pointer;overflow:hidden;background:var(--panel);
+  }
+  .logo-slot:hover{border-color:var(--gold);}
+  .logo-slot img{width:100%;height:100%;object-fit:contain;}
+  .logo-placeholder-text{font-size:10px;color:var(--muted);text-align:center;line-height:1.2;}
+  .brand .mark{color:var(--gold-bright);font-size:20px;}
+  .brand h1{font-size:19px;font-weight:600;margin:0;letter-spacing:0.2px;}
+  .brand .sub{color:var(--muted);font-size:13px;font-family:'Spectral',serif;font-style:italic;}
+  nav.tabs{display:flex;gap:6px;flex-wrap:wrap;}
+  .tab-btn{
+    font-family:'Karla',sans-serif;font-size:14px;font-weight:600;color:var(--muted);
+    background:transparent;border:1px solid transparent;padding:8px 14px;border-radius:3px;
+    cursor:pointer;transition:color .15s, border-color .15s;
+  }
+  .tab-btn:hover{color:var(--cream);}
+  .tab-btn.active{color:var(--gold-bright);border-color:var(--line);background:var(--panel);}
+
+  main{max-width:1000px;margin:0 auto;padding:32px 24px 80px;}
+
+  /* ---------- Menu view ---------- */
+  .group-picker{display:flex;gap:14px;margin-bottom:28px;flex-wrap:wrap;}
+  .group-card{
+    flex:1;min-width:220px;background:var(--panel);border:1px solid var(--line);
+    padding:20px 22px;border-radius:2px;cursor:pointer;transition:border-color .15s, background .15s;
+  }
+  .group-card:hover{border-color:var(--gold);background:var(--panel-2);}
+  .group-card.active{border-color:var(--gold-bright);background:var(--panel-2);}
+  .group-card h3{margin:0 0 4px;font-size:20px;font-weight:600;}
+  .group-card p{margin:0;color:var(--muted);font-size:13.5px;}
+
+  .round-list{display:flex;flex-direction:column;gap:2px;}
+  .round-row{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:16px 18px;background:var(--panel);border:1px solid var(--line);
+    border-radius:2px;cursor:pointer;transition:background .15s,border-color .15s;
+  }
+  .round-row:hover{background:var(--panel-2);border-color:var(--gold);}
+  .round-row .left{display:flex;align-items:center;gap:14px;}
+  .round-num{
+    font-family:'Spectral',serif;font-size:15px;color:var(--gold-bright);
+    width:28px;height:28px;border:1px solid var(--line);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .round-row h4{margin:0;font-size:16px;font-weight:600;font-family:'Spectral',serif;}
+  .round-row .meta{color:var(--muted);font-size:12.5px;margin-top:2px;}
+  .round-row .go{color:var(--muted);font-size:13px;}
+  .round-row:hover .go{color:var(--gold-bright);}
+
+  /* ---------- Present view ---------- */
+  .present{
+    background:var(--panel);border:1px solid var(--line);border-radius:2px;
+    box-shadow:0 0 0 3px var(--bg), 0 0 0 4px var(--line);
+    padding:52px 44px;min-height:52vh;display:flex;flex-direction:column;position:relative;
+  }
+  .present::before,.present::after{
+    content:"";position:absolute;width:30px;height:30px;top:16px;
+    border-top:1.5px solid var(--gold-bright);opacity:0.75;
+  }
+  .present::before{left:16px;border-left:1.5px solid var(--gold-bright);}
+  .present::after{right:16px;border-right:1.5px solid var(--gold-bright);}
+  .present-head{
+    display:flex;justify-content:space-between;align-items:center;
+    color:var(--muted);font-size:13px;margin-bottom:28px;letter-spacing:0.2px;
+  }
+  .present-head .back{cursor:pointer;color:var(--muted);}
+  .present-head .back:hover{color:var(--gold-bright);}
+  .present-head-right{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .q-count{color:var(--gold-bright);}
+  .fullscreen-btn{
+    font-family:'Karla',sans-serif;font-size:11.5px;font-weight:600;color:var(--muted);
+    background:transparent;border:1px solid var(--line);padding:5px 12px;border-radius:20px;cursor:pointer;
+    white-space:nowrap;
+  }
+  .fullscreen-btn:hover{color:var(--gold-bright);border-color:var(--gold);}
+  body.is-fullscreen .topbar, body.is-fullscreen .livebar{display:none;}
+  body.is-fullscreen main{padding-top:36px;}
+  .q-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:28px;}
+  .q-text{
+    font-size:clamp(22px,3.4vw,34px);line-height:1.4;max-width:760px;font-weight:500;
+    transition:font-size .55s cubic-bezier(.4,0,.2,1), opacity .55s cubic-bezier(.4,0,.2,1);
+  }
+  .q-text.revealed{font-size:clamp(15px,1.7vw,19px);opacity:0.6;}
+  .q-text::first-letter{
+    font-family:'Spectral',serif;font-weight:700;font-size:1.5em;color:var(--gold-bright);
+  }
+  .q-points{color:var(--muted);font-size:14px;}
+
+  .answered-flag{
+    font-family:'Karla',sans-serif;font-size:12.5px;font-weight:600;color:var(--sage);
+    background:rgba(75,107,78,0.1);border:1px solid rgba(75,107,78,0.35);border-radius:20px;
+    padding:6px 14px;display:inline-flex;align-items:center;gap:6px;margin:0 auto 4px;
+  }
+
+  .media-slot{
+    width:100%;max-width:560px;min-height:180px;border:1px dashed var(--line);
+    border-radius:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:10px;padding:18px;background:rgba(122,53,33,0.05);
+  }
+  .media-slot img{max-width:100%;max-height:320px;border-radius:2px;}
+  .media-slot video{max-width:100%;max-height:340px;border-radius:2px;}
+  .media-slot .placeholder{color:var(--muted);font-size:13px;text-align:center;}
+  .media-slot input[type=file]{color:var(--muted);font-size:12.5px;max-width:100%;}
+
+  /* ---------- Picture-round clue grid ---------- */
+  .picture-clue-wrap{position:relative;width:100%;max-width:560px;margin:0 auto;line-height:0;}
+  .picture-clue-img{width:100%;display:block;border-radius:2px;}
+  .picture-clue-grid{position:absolute;inset:0;display:grid;gap:3px;}
+  .clue-tile{
+    background:var(--panel-2);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Spectral',serif;color:var(--muted);font-size:clamp(18px,3vw,26px);
+    cursor:pointer;transition:opacity .35s ease, background .2s ease;
+  }
+  .clue-tile:hover{background:var(--panel);color:var(--gold-bright);}
+  .clue-tile.open{opacity:0;pointer-events:none;}
+  .clue-status{color:var(--muted);font-size:13px;margin-top:2px;}
+
+  .answer-box{
+    width:100%;max-width:700px;border-top:1px solid var(--line);padding-top:24px;margin-top:2px;
+  }
+  .answer-label{color:var(--sage);font-size:12.5px;letter-spacing:0.3px;margin-bottom:10px;}
+  .answer-text{
+    font-family:'Spectral',serif;font-size:clamp(30px,4.6vw,46px);font-weight:600;
+    color:var(--gold-bright);line-height:1.3;
+    animation:answerReveal .6s cubic-bezier(.4,0,.2,1) both;
+  }
+  @keyframes answerReveal{
+    from{ opacity:0; transform:translateY(12px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .reveal-btn{
+    font-family:'Karla',sans-serif;font-weight:600;font-size:14px;color:var(--bg);
+    background:var(--gold-bright);border:none;padding:11px 26px;border-radius:2px;
+    cursor:pointer;transition:transform .12s, background .15s;
+  }
+  .reveal-btn:hover{background:var(--gold);}
+  .reveal-btn:active{transform:scale(0.98);}
+  .ghost-btn{
+    font-family:'Karla',sans-serif;font-weight:600;font-size:13.5px;color:var(--muted);
+    background:transparent;border:1px solid var(--line);padding:10px 20px;border-radius:2px;cursor:pointer;
+  }
+  .ghost-btn:hover{color:var(--cream);border-color:var(--gold);}
+
+  .present-nav{display:flex;justify-content:space-between;align-items:center;margin-top:30px;gap:10px;}
+  .present-nav .navgroup{display:flex;gap:10px;}
+
+  /* ---------- Live score bar (always visible, auto-updating) ---------- */
+  .livebar{
+    display:flex;gap:8px;overflow-x:auto;padding:10px 28px;
+    border-bottom:1px solid var(--line);background:rgba(242,231,204,0.75);
+    position:sticky;top:57px;z-index:40;
+  }
+  .livebar::-webkit-scrollbar{height:4px;}
+  .livebar.hidden{display:none;}
+  .live-chip{
+    flex-shrink:0;font-family:'Karla',sans-serif;font-size:12.5px;font-weight:600;color:var(--muted);
+    background:var(--panel);border:1px solid var(--line);padding:6px 12px;border-radius:20px;
+    display:flex;align-items:center;gap:7px;white-space:nowrap;
+  }
+  .live-chip.leading{border-color:var(--gold-bright);color:var(--cream);}
+  .live-chip .lp{color:var(--gold-bright);font-variant-numeric:tabular-nums;font-weight:700;}
+
+  /* team selector + award strip in present view */
+  .team-strip{
+    display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:16px 0;margin:26px 0 2px;
+  }
+  .team-chip{
+    font-family:'Karla',sans-serif;font-size:13px;font-weight:600;color:var(--muted);
+    background:var(--panel-2);border:1px solid var(--line);padding:8px 14px;border-radius:20px;
+    cursor:pointer;display:flex;align-items:center;gap:7px;transition:border-color .15s,color .15s;
+  }
+  .team-chip .dot{width:6px;height:6px;border-radius:50%;background:var(--muted);}
+  .team-chip:hover{color:var(--cream);border-color:var(--gold);}
+  .team-chip.selected{color:var(--gold-bright);border-color:var(--gold-bright);background:rgba(232,199,102,0.08);}
+  .team-chip .pts{color:var(--gold-bright);font-variant-numeric:tabular-nums;}
+
+  .team-chip.none-chip{border-style:dashed;color:var(--muted);}
+  .team-chip.none-chip.selected{color:var(--clay);border-color:var(--clay);background:rgba(178,70,50,0.08);border-style:dashed;}
+  .selection-note{font-size:12.5px;color:var(--muted);text-align:center;min-height:16px;margin-top:2px;}
+  .selection-note.set{color:var(--sage);}
+  .selection-note.none-set{color:var(--clay);}
+
+  /* ---------- Countdown timer ---------- */
+  .timer-block{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:8px;}
+  .timer-face{
+    width:84px;height:84px;border-radius:50%;border:2px solid var(--sage);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Spectral',serif;font-size:28px;font-weight:600;color:var(--sage);
+    background:var(--panel-2);font-variant-numeric:tabular-nums;
+    transition:border-color .4s ease, color .4s ease;
+  }
+  .timer-block.tier-green .timer-face{border-color:var(--sage);color:var(--sage);}
+  .timer-block.tier-amber .timer-face{border-color:var(--amber);color:var(--amber);}
+  .timer-block.tier-red .timer-face{border-color:var(--clay);color:var(--clay);}
+  .timer-block.done .timer-face{border-color:var(--clay);color:var(--clay);font-size:14px;line-height:1.2;}
+  .timer-bar-track{width:180px;height:4px;background:var(--panel-2);border-radius:2px;overflow:hidden;}
+  .timer-bar{height:100%;background:var(--sage);width:100%;transition:background .4s ease;}
+  .timer-block.tier-green .timer-bar{background:var(--sage);}
+  .timer-block.tier-amber .timer-bar{background:var(--amber);}
+  .timer-block.tier-red .timer-bar{background:var(--clay);}
+  .timer-controls{display:flex;gap:8px;}
+
+  /* sequence type */
+  .seq-list{list-style:none;padding:0;margin:0;width:100%;max-width:560px;text-align:left;}
+  .seq-list li{
+    font-family:'Spectral',serif;font-size:17px;padding:10px 16px;margin-bottom:6px;
+    background:rgba(0,0,0,0.15);border-left:2px solid var(--gold);border-radius:2px;
+    transition:font-size .4s cubic-bezier(.4,0,.2,1), background .4s ease;
+  }
+  .seq-list.answered li{
+    border-left-color:var(--sage);font-size:19px;font-weight:600;color:var(--gold-bright);
+    background:rgba(122,53,33,0.06);
+    animation:answerReveal .5s cubic-bezier(.4,0,.2,1) both;
+  }
+  .seq-list.answered li:nth-child(1){animation-delay:.03s;}
+  .seq-list.answered li:nth-child(2){animation-delay:.08s;}
+  .seq-list.answered li:nth-child(3){animation-delay:.13s;}
+  .seq-list.answered li:nth-child(4){animation-delay:.18s;}
+  .seq-list.answered li:nth-child(5){animation-delay:.23s;}
+  .seq-list.answered li:nth-child(6){animation-delay:.28s;}
+  .seq-list.answered li:nth-child(7){animation-delay:.33s;}
+  .seq-list li .n{color:var(--gold-bright);margin-right:10px;}
+
+  /* ---------- Scoreboard view ---------- */
+  .board-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;flex-wrap:wrap;gap:10px;}
+  .board-toolbar h2{margin:0;font-size:22px;font-weight:600;}
+  .board-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .team-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:2px;
+    padding:34px 20px 18px;position:relative;
+  }
+  .team-card .team-name{
+    font-family:'Spectral',serif;font-size:18px;font-weight:600;background:transparent;border:none;
+    color:var(--cream);width:100%;padding:0;margin-bottom:14px;border-bottom:1px solid transparent;
+  }
+  .team-card .team-name:focus{outline:none;border-bottom:1px solid var(--gold);}
+  .team-name-display{
+    font-family:'Spectral',serif;font-size:18px;font-weight:600;color:var(--cream);margin-bottom:14px;
+  }
+  .remove-team{
+    position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;
+    background:transparent;border:1px solid var(--line);color:var(--muted);
+    font-size:14px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  }
+  .remove-team:hover{color:var(--clay);border-color:var(--clay);}
+  .rank-badge{
+    position:absolute;top:10px;left:10px;width:26px;height:26px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Spectral',serif;font-weight:700;font-size:12px;border:1.5px solid var(--line);
+    color:var(--muted);background:var(--panel-2);letter-spacing:0.5px;
+  }
+  .rank-badge.rank-1{color:var(--bg);background:var(--gold-bright);border-color:var(--gold-bright);}
+  .rank-badge.rank-2{color:var(--bg);background:#A8998C;border-color:#A8998C;}
+  .rank-badge.rank-3{color:var(--bg);background:#A6672E;border-color:#A6672E;}
+  .add-team-card{
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    border-style:dashed;color:var(--muted);font-family:'Karla',sans-serif;font-weight:600;font-size:14px;
+    min-height:150px;
+  }
+  .add-team-card:hover{color:var(--gold-bright);border-color:var(--gold);}
+  .team-score{
+    font-family:'Karla',sans-serif;font-variant-numeric:tabular-nums;font-weight:700;
+    font-size:44px;color:var(--gold-bright);text-align:center;margin:10px 0 16px;
+  }
+  .score-btns{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;}
+  .score-btns button{
+    font-family:'Karla',sans-serif;font-size:13px;font-weight:600;color:var(--cream);
+    background:var(--panel-2);border:1px solid var(--line);padding:7px 10px;border-radius:2px;cursor:pointer;min-width:44px;
+  }
+  .score-btns button:hover{border-color:var(--gold);color:var(--gold-bright);}
+  .score-btns button.neg{color:var(--clay);}
+
+  .tv-mode .team-score{font-size:min(9vw,110px);}
+  .tv-mode .team-name-display{font-size:min(3.4vw,30px);text-align:center;}
+  .tv-mode .board-grid{gap:22px;}
+  .tv-mode .score-btns{display:none;}
+  .tv-mode .hide-in-tv{display:none;}
+  .tv-mode main{max-width:100%;}
+  .tv-mode .topbar{display:none;}
+
+  .icon-btn{
+    font-family:'Karla',sans-serif;font-size:13px;font-weight:600;color:var(--muted);
+    background:transparent;border:1px solid var(--line);padding:9px 16px;border-radius:2px;cursor:pointer;
+  }
+  .icon-btn:hover{color:var(--cream);border-color:var(--gold);}
+
+  .section-title{font-size:14px;color:var(--muted);margin:0 0 14px;letter-spacing:0.2px;}
+  .divider{color:var(--gold);opacity:0.6;margin:0 8px;}
+
+  /* ---------- Round settings (Score Keeper page) ---------- */
+  .keeper-block{margin-top:44px;}
+  .keeper-block h2{font-size:20px;font-weight:600;margin:0 0 4px;}
+  .keeper-block .desc{color:var(--muted);font-size:13.5px;margin:0 0 18px;}
+  .settings-group{margin-bottom:26px;}
+  .settings-group h3{font-size:15px;font-weight:600;color:var(--gold-bright);margin:0 0 10px;font-family:'Spectral',serif;}
+  .settings-row{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:13px 16px;background:var(--panel);border:1px solid var(--line);border-radius:2px;margin-bottom:6px;
+  }
+  .settings-row .rname{font-size:14.5px;font-weight:600;}
+  .settings-row .rmeta{color:var(--muted);font-size:12px;margin-top:2px;}
+  .settings-row .rctrls{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  .settings-row label{font-size:12px;color:var(--muted);}
+
+  .group-name-row{display:flex;gap:14px;flex-wrap:wrap;align-items:baseline;margin-bottom:10px;}
+  .group-label-input{
+    font-family:'Spectral',serif;font-size:16px;font-weight:600;color:var(--gold-bright);
+    background:transparent;border:none;border-bottom:1px solid transparent;padding:2px 0;min-width:110px;
+  }
+  .group-label-input:focus{outline:none;border-bottom:1px solid var(--gold);}
+  .group-sub-input{
+    font-family:'Karla',sans-serif;font-size:13px;color:var(--muted);
+    background:transparent;border:none;border-bottom:1px solid transparent;padding:2px 0;min-width:140px;flex:1;
+  }
+  .group-sub-input:focus{outline:none;border-bottom:1px solid var(--gold);}
+  .round-title-input{
+    font-family:'Spectral',serif;font-size:14.5px;font-weight:600;color:var(--cream);
+    background:transparent;border:none;border-bottom:1px solid transparent;padding:1px 0;width:100%;
+  }
+  .round-title-input:focus{outline:none;border-bottom:1px solid var(--gold);}
+
+  .penalty-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .penalty-chip{
+    display:flex;align-items:center;gap:7px;background:var(--panel);border:1px solid var(--line);
+    border-radius:20px;padding:6px 12px;font-size:13px;color:var(--clay);font-weight:600;
+  }
+  .remove-chip{cursor:pointer;color:var(--muted);font-size:13px;}
+  .remove-chip:hover{color:var(--clay);}
+  .penalty-add-input{
+    width:70px;background:var(--panel-2);border:1px solid var(--line);color:var(--cream);
+    font-family:'Karla',sans-serif;font-size:13px;text-align:center;padding:7px 4px;border-radius:2px;
+  }
+  .penalty-add-input:focus{outline:none;border-color:var(--gold);}
+
+  /* ---------- Question editor ---------- */
+  .editor-round{border:1px solid var(--line);border-radius:2px;margin-bottom:8px;overflow:hidden;}
+  .editor-round-head{
+    display:flex;justify-content:space-between;align-items:center;padding:14px 16px;
+    background:var(--panel);cursor:pointer;
+  }
+  .editor-round-head:hover{background:var(--panel-2);}
+  .editor-round-head .rname{font-family:'Spectral',serif;font-size:15px;font-weight:600;}
+  .editor-round-head .rmeta{color:var(--muted);font-size:12px;margin-top:2px;}
+  .editor-round-head .go{color:var(--muted);font-size:13px;flex-shrink:0;}
+  .editor-round-body{
+    padding:16px;background:rgba(122,53,33,0.03);display:flex;flex-direction:column;gap:14px;
+  }
+  .editor-question{
+    border:1px solid var(--line);border-radius:2px;padding:14px 16px;background:var(--panel);
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .editor-question-head{
+    display:flex;justify-content:space-between;align-items:center;font-size:12.5px;
+    color:var(--muted);font-weight:600;letter-spacing:0.2px;
+  }
+  .delete-q-btn{
+    width:22px;height:22px;border-radius:50%;background:transparent;border:1px solid var(--line);
+    color:var(--muted);font-size:14px;line-height:1;cursor:pointer;display:flex;align-items:center;
+    justify-content:center;flex-shrink:0;
+  }
+  .delete-q-btn:hover{color:var(--clay);border-color:var(--clay);}
+  .ed-label{font-size:11.5px;color:var(--muted);margin-top:4px;}
+  .ed-input, .ed-textarea{
+    width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--cream);
+    font-family:'Karla',sans-serif;font-size:13.5px;padding:8px 10px;border-radius:2px;resize:vertical;
+  }
+  .ed-input:focus, .ed-textarea:focus{outline:none;border-color:var(--gold);}
+  .add-question-btn{align-self:flex-start;}
+  .ed-media-slot{min-height:auto;padding:14px;}
+  .ed-media-slot img{max-height:160px;}
+  .ed-media-slot video{max-height:160px;}
+
+  /* ---------- Answer history ---------- */
+  .history-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:11px 16px;background:var(--panel);border:1px solid var(--line);border-radius:2px;
+  }
+  .history-pts{color:var(--sage);font-weight:700;font-family:'Karla',sans-serif;font-size:14px;}
+  .history-name-input{
+    font-family:'Spectral',serif;font-size:15px;font-weight:600;color:var(--cream);
+    background:transparent;border:none;border-bottom:1px solid transparent;padding:1px 0;
+    width:100%;max-width:260px;
+  }
+  .history-name-input:focus{outline:none;border-bottom:1px solid var(--gold);}
+
+  /* ---------- Round instructions page ---------- */
+  .instructions-body{
+    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;gap:22px;max-width:640px;margin:0 auto;
+  }
+  .instructions-title{font-family:'Spectral',serif;font-size:clamp(24px,3.6vw,36px);font-weight:600;}
+  .instructions-title::first-letter{color:var(--gold-bright);font-size:1.4em;font-weight:700;}
+  .instructions-text{font-size:16px;line-height:1.7;color:var(--cream);}
+  .instructions-text p{margin:0 0 12px;}
+  .instructions-empty{color:var(--muted);font-style:italic;}
+  .pts-input{
+    width:64px;background:var(--panel-2);border:1px solid var(--line);color:var(--cream);
+    font-family:'Karla',sans-serif;font-weight:700;font-size:14px;text-align:center;
+    padding:7px 4px;border-radius:2px;
+  }
+  .pts-input:focus{outline:none;border-color:var(--gold);}
+  .steal-toggle{
+    display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);cursor:pointer;user-select:none;
+  }
+  .steal-toggle input{accent-color:var(--gold-bright);}
+
+  @media (max-width:640px){
+    .present{padding:32px 20px;}
+    main{padding:24px 16px 60px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar" id="topbar">
+  <div class="brand">
+    <label class="logo-slot" id="logoSlot" for="logoUploadInput" title="Upload your church logo">
+      <span class="logo-placeholder-text">+ Logo</span>
+    </label>
+    <input type="file" id="logoUploadInput" accept="image/*" style="display:none;" onchange="handleLogoUpload(event)">
+    <span class="mark">✝</span>
+    <h1>Gospel of Luke Quiz</h1>
+    <span class="sub">the Gospel of mercy &amp; joy</span>
+  </div>
+  <nav class="tabs">
+    <button class="tab-btn active" data-view="menu" onclick="setView('menu')">Rounds</button>
+    <button class="tab-btn" data-view="editor" onclick="setView('editor')">Questions</button>
+    <button class="tab-btn" data-view="keeper" onclick="setView('keeper')">Score Keeper</button>
+  </nav>
+</div>
+<div class="livebar" id="livebar"></div>
+
+<main id="main"></main>
+
+<script>
+/* ===================== DATA ===================== */
+const DATA = {
+  A: {
+    label: "Group A",
+    sub: "5th – 7th STD",
+    rounds: [
+      { title:"Rapid Fire", type:"rapid", points:5, seconds:15, questions:[
+        {q:"Who was Jesus' mother?", a:"Mary"},
+        {q:"Who was John the Baptist's father?", a:"Zechariah"},
+        {q:"In which town was Jesus born?", a:"Bethlehem"},
+        {q:"Which angel told Mary she would have a baby?", a:"Gabriel"},
+        {q:"What did the shepherds see and hear in the sky?", a:"A multitude of angels praising God"},
+        {q:"Who was Jesus' cousin, born just before Him?", a:"John the Baptist"},
+        {q:"At what age was Jesus found teaching in the Temple?", a:"12 years old"},
+        {q:"Who baptized Jesus in the River Jordan?", a:"John the Baptist"},
+      ]},
+      { title:"Picture Round", type:"picture", points:10, seconds:20, segments:4, segmentPenalty:2, questions:[
+        {q:"Image 1 — What scene is this?", media:"image", a:"The Announcement to the Shepherds (Luke 2)"},
+        {q:"Image 2 — What scene is this?", media:"image", a:"The Parable of the Lost Sheep (Luke 15)"},
+        {q:"Image 3 — What scene is this?", media:"image", a:"The Good Samaritan (Luke 10)"},
+        {q:"Image 4 — What scene is this?", media:"image", a:"The Prodigal Son (Luke 15)"},
+        {q:"Image 5 — What scene is this?", media:"image", a:"Zacchaeus (Luke 19)"},
+      ]},
+      { title:"Parable Round", type:"parable", points:10, seconds:20, questions:[
+        {q:"A younger son leaves home, wastes all his money, and returns hungry.", a:"The Prodigal Son"},
+        {q:"A traveler is beaten and robbed; a stranger stops to help him.", a:"The Good Samaritan"},
+        {q:"A woman loses one coin out of ten and searches the whole house.", a:"The Lost Coin"},
+        {q:"A rich man builds bigger barns to store his crops, but dies that night.", a:"The Rich Fool"},
+        {q:"A shepherd leaves 99 sheep to search for the one that wandered off.", a:"The Lost Sheep"},
+        {q:"Seeds fall on a path, on rocks, among thorns, and on good soil.", a:"The Sower"},
+      ]},
+      { title:"Sequence Round", type:"sequence", points:10, seconds:30, questions:[
+        {q:"Put these in the correct order:", items:["Jesus is presented in the Temple","Angel visits Mary (Annunciation)","Shepherds visit baby Jesus","Mary visits Elizabeth","Jesus is born","12-year-old Jesus found in the Temple"],
+         a:["Angel visits Mary (Annunciation)","Mary visits Elizabeth","Jesus is born","Shepherds visit baby Jesus","Jesus is presented in the Temple","12-year-old Jesus found in the Temple"]},
+        {q:"Put these in the correct order:", items:["Jesus calls His first disciples","Jesus is tempted in the desert","Jesus begins teaching in Nazareth","Jesus is baptized"],
+         a:["Jesus is baptized","Jesus is tempted in the desert","Jesus calls His first disciples","Jesus begins teaching in Nazareth"]},
+      ]},
+      { title:"Audio Clue Round", type:"audio", points:12, seconds:20, questions:[
+        {q:"Listen to the clip — which moment is this from?", media:"audio", a:"Mary's Magnificat — \"My soul proclaims the greatness of the Lord\" (Lk 1:46-55)"},
+        {q:"Listen to the clip — which moment is this from?", media:"audio", a:"Angel's message to the shepherds — \"Do not be afraid\" (Lk 2:10)"},
+        {q:"Listen to the clip — which moment is this from?", media:"audio", a:"Simeon's Song, Nunc Dimittis (Lk 2:29-32)"},
+        {q:"Listen to the clip — which moment is this from?", media:"audio", a:"Jesus in the Nazareth synagogue — \"Today this scripture is fulfilled\" (Lk 4:21)"},
+      ]},
+      { title:"Video Clip Round", type:"video", points:12, seconds:25, questions:[
+        {q:"Watch, then guess: what happens next?", media:"video", a:"Jesus calms the storm — \"Peace, be still,\" and the sea grows calm"},
+        {q:"Watch, then guess: what happens next?", media:"video", a:"Jesus feeds the 5000 with 5 loaves and 2 fish"},
+        {q:"Watch, then guess: what happens next?", media:"video", a:"Jesus touches the coffin at Nain — the widow's son sits up"},
+      ]},
+      { title:"Who Am I?", type:"whoami", points:10, seconds:15, questions:[
+        {q:"I was a priest who didn't believe the angel, so I couldn't speak until my son was born.", a:"Zechariah"},
+        {q:"I am Mary's cousin, and my son leaped in my womb when Mary visited me.", a:"Elizabeth"},
+        {q:"I was promised I would not die before I saw the Messiah.", a:"Simeon"},
+        {q:"I was a very old prophetess who never left the Temple.", a:"Anna"},
+        {q:"I was a rich tax collector who climbed a tree to see Jesus.", a:"Zacchaeus"},
+        {q:"I walked to Emmaus with a friend, not realizing I was talking to the Risen Jesus.", a:"Cleopas"},
+      ]},
+      { title:"Final Rebound", type:"rebound", points:20, seconds:20, questions:[
+        {q:"What did Jesus tell Zacchaeus after coming down from the tree?", a:"\"I must stay at your house today\""},
+        {q:"Who carried Jesus' cross part of the way?", a:"Simon of Cyrene"},
+        {q:"What did Jesus say to the criminal on the cross next to Him?", a:"\"Today you will be with me in paradise\""},
+        {q:"Name any two of Jesus' twelve apostles mentioned in Luke.", a:"Any two, e.g. Peter, Andrew, James, John…"},
+        {q:"Where did the two disciples recognize the Risen Jesus?", a:"In the breaking of the bread, at Emmaus"},
+      ]},
+    ]
+  },
+  B: {
+    label: "Group B",
+    sub: "8th – 10th STD",
+    rounds: [
+      { title:"Rapid Fire", type:"rapid", points:5, seconds:15, questions:[
+        {q:"Which Roman emperor was reigning at Jesus' birth?", a:"Caesar Augustus"},
+        {q:"Who was governor of Syria at the time of the census?", a:"Quirinius"},
+        {q:"Luke uniquely records which two songs sung by Mary and Zechariah?", a:"The Magnificat and the Benedictus"},
+        {q:"What was Zechariah's priestly division?", a:"The division of Abijah"},
+        {q:"How old was Jesus when He began His ministry, per Luke?", a:"About 30"},
+        {q:"Which Old Testament prophet's scroll did Jesus read in the Nazareth synagogue?", a:"Isaiah"},
+        {q:"Who was tetrarch of Galilee during Jesus' ministry?", a:"Herod Antipas"},
+        {q:"Luke traces Jesus' genealogy back to whom (uniquely, further than Matthew)?", a:"Adam"},
+      ]},
+      { title:"Picture Round", type:"picture", points:10, seconds:20, segments:4, segmentPenalty:2, questions:[
+        {q:"Image 1 — what does this represent?", media:"image", a:"The census under Quirinius (Lk 2:1-4)"},
+        {q:"Image 2 — what scene is this?", media:"image", a:"Calling of Peter, James & John after the miraculous catch (Lk 5:1-11)"},
+        {q:"Image 3 — what parable is this?", media:"image", a:"The Mustard Seed (Lk 13:18-19)"},
+        {q:"Image 4 — what parable is this?", media:"image", a:"The Pharisee and the Tax Collector (Lk 18:9-14)"},
+        {q:"Image 5 — what scene is this?", media:"image", a:"The Road to Emmaus (Lk 24:13-35)"},
+      ]},
+      { title:"Parable Round", type:"parable", points:10, seconds:20, questions:[
+        {q:"A judge who fears no one gives in to a persistent widow.", a:"The Persistent Widow (Lk 18:1-8)"},
+        {q:"A Pharisee boasts in prayer; a tax collector begs for mercy.", a:"The Pharisee and the Tax Collector (Lk 18:9-14)"},
+        {q:"A manager about to lose his job cuts deals with his master's debtors.", a:"The Shrewd Manager (Lk 16:1-13)"},
+        {q:"A rich man ignores a poor beggar at his gate; both die.", a:"The Rich Man and Lazarus (Lk 16:19-31)"},
+        {q:"A man plans a large banquet, but invited guests all make excuses.", a:"The Great Banquet (Lk 14:15-24)"},
+        {q:"A fig tree isn't bearing fruit; the gardener asks for one more year.", a:"The Barren Fig Tree (Lk 13:6-9)"},
+      ]},
+      { title:"Sequence Round", type:"sequence", points:10, seconds:30, questions:[
+        {q:"Put these in the correct order:", items:["Birth of Jesus","Annunciation to Mary","Finding in the Temple at 12","Zechariah's vision in the Temple","Visitation","Presentation in the Temple","Birth of John the Baptist"],
+         a:["Zechariah's vision in the Temple","Annunciation to Mary","Visitation","Birth of John the Baptist","Birth of Jesus","Presentation in the Temple","Finding in the Temple at 12"]},
+        {q:"Put these in the correct order:", items:["Arrest","Last Supper","Trial before Pilate/Herod","Triumphal Entry","Crucifixion","Agony in Gethsemane","Resurrection","Trial before Sanhedrin","Ascension","Road to Emmaus"],
+         a:["Triumphal Entry","Last Supper","Agony in Gethsemane","Arrest","Trial before Sanhedrin","Trial before Pilate/Herod","Crucifixion","Resurrection","Road to Emmaus","Ascension"]},
+      ]},
+      { title:"Audio Clue Round", type:"audio", points:12, seconds:20, questions:[
+        {q:"Listen — whose words, and when?", media:"audio", a:"Elizabeth's greeting to Mary — \"Blessed are you among women\" (Lk 1:42)"},
+        {q:"Listen — whose words, and when?", media:"audio", a:"Zechariah's Benedictus — \"Blessed be the Lord\" (Lk 1:68)"},
+        {q:"Listen — whose words, and when?", media:"audio", a:"Jesus on the cross — \"Father, forgive them\" (Lk 23:34)"},
+        {q:"Listen — whose words, and when?", media:"audio", a:"The Emmaus disciples — \"Were not our hearts burning within us\" (Lk 24:32)"},
+      ]},
+      { title:"Video Clip Round", type:"video", points:12, seconds:25, questions:[
+        {q:"Watch, then guess: what happens next?", media:"video", a:"The Transfiguration — the voice says \"This is my Son, listen to him\""},
+        {q:"Watch, then guess: what happens next?", media:"video", a:"The sinful woman anoints Jesus' feet — He tells the parable of the two debtors and forgives her"},
+        {q:"Watch, then guess: what happens next?", media:"video", a:"The Ascension — Jesus is carried up to heaven; the disciples return to Jerusalem with joy"},
+      ]},
+      { title:"Who Am I?", type:"whoami", points:10, seconds:15, questions:[
+        {q:"I doubted the angel and was struck mute until my son's naming day.", a:"Zechariah"},
+        {q:"I am a Roman centurion whose faith Jesus praised as greater than any in Israel.", a:"The Centurion at Capernaum (Lk 7:1-10)"},
+        {q:"I was a widow whose only son Jesus raised from death at my town's gate.", a:"The Widow of Nain"},
+        {q:"I anointed Jesus' feet with my tears and hair at a Pharisee's house.", a:"The Sinful Woman (Lk 7:36-50)"},
+        {q:"I was a chief tax collector, too short to see over the crowd.", a:"Zacchaeus"},
+        {q:"I asked Jesus to remember me when He came into His kingdom.", a:"The Penitent Thief on the cross"},
+      ]},
+      { title:"Final Rebound", type:"rebound", points:20, seconds:20, questions:[
+        {q:"Which two Old Testament figures appeared with Jesus at the Transfiguration?", a:"Moses and Elijah"},
+        {q:"What did Jesus say the Kingdom of God is not observed with?", a:"\"Signs to be observed\" — it is not \"here\" or \"there\" (Lk 17:20-21)"},
+        {q:"Which book is considered Luke's \"sequel,\" written by the same author?", a:"The Acts of the Apostles"},
+        {q:"Name the disciple on the road to Emmaus who is mentioned by name.", a:"Cleopas"},
+        {q:"After His words in the Nazareth synagogue about Elijah and Elisha helping Gentiles, what did the crowd try to do to Jesus?", a:"They tried to throw Him off a cliff"},
+      ]},
+    ]
+  }
+};
+
+/* ===================== STATE ===================== */
+let view = "menu";           // menu | present | board
+let currentGroup = null;     // "A" | "B"
+let currentRoundIdx = null;
+let currentQIdx = 0;
+let revealed = false;
+let tvMode = false;
+let showingInstructions = false; // whether the round's instructions page is showing
+let historyOpenTeam = null;      // index of team currently expanded in Answer History
+let churchLogo = null;           // data URL of uploaded church logo, or null
+
+let teams = Array.from({length:8}, (_,i)=>({name:"Team "+(i+1), score:0}));
+let negativePenalties = [5];   // configurable penalty amounts, e.g. [5,10]
+let editorOpenRound = null;    // "A-0" style key of the round currently expanded in the editor
+
+let selectedTeam = null;   // index of team currently answering, "NONE", or null (undecided)
+
+/* ---- Countdown timer state ---- */
+let timerTotal = 20;
+let timerSeconds = 20;
+let timerRunning = false;
+let timerHandle = null;
+let autoStartHandle = null;   // pending 3s auto-start timeout after "Next question"
+let audioCtx = null;
+
+/* ===================== RENDER ===================== */
+function setView(v){
+  // Leaving a question mid-round should never silently drop a selection —
+  // commit whatever's currently chosen before navigating anywhere else.
+  if(view==="present" && v!==view && currentGroup!==null && currentRoundIdx!==null){
+    commitAward();
+  }
+  view = v;
+  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.toggle("active", b.dataset.view===v));
+  render();
+}
+
+function render(){
+  const main = document.getElementById("main");
+  if(view==="menu") main.innerHTML = renderMenu();
+  else if(view==="present") main.innerHTML = showingInstructions ? renderInstructions() : renderPresent();
+  else if(view==="keeper") main.innerHTML = renderKeeper();
+  else if(view==="editor") main.innerHTML = renderEditor();
+  document.body.classList.toggle("tv-mode", tvMode && view==="keeper");
+  renderLiveBar();
+  saveState();
+}
+
+/* Returns teams sorted by score (highest first), each tagged with its
+   original array index (for scoring/rename/remove calls) and a competition-
+   style rank where tied scores share the same rank (1,1,3,4 …). */
+function getRankedTeams(){
+  const withIdx = teams.map((t,i)=>({team:t, idx:i}));
+  withIdx.sort((a,b)=> b.team.score - a.team.score);
+  let rank = 0, prevScore = null, seen = 0;
+  return withIdx.map(entry=>{
+    seen++;
+    if(entry.team.score !== prevScore){ rank = seen; prevScore = entry.team.score; }
+    return {team:entry.team, idx:entry.idx, rank};
+  });
+}
+
+function toRoman(num){
+  const map = [[10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]];
+  let n = num, out = "";
+  for(const [val,sym] of map){ while(n>=val){ out+=sym; n-=val; } }
+  return out || "";
+}
+
+/* Picture rounds reduce the available points by a fixed penalty for each
+   image segment the host reveals as a clue — guess it with fewer clues,
+   score more. Every other round type is unaffected. */
+function getEffectivePoints(round, item){
+  if(round.type !== 'picture') return round.points;
+  const penalty = round.segmentPenalty || 0;
+  const opened = (item.revealedSegmentIndices || []).length;
+  return Math.max(0, round.points - opened*penalty);
+}
+
+function renderLiveBar(){
+  const bar = document.getElementById("livebar");
+  if(view==="keeper" || view==="editor"){ bar.classList.add("hidden"); return; }
+  bar.classList.remove("hidden");
+  const ranked = getRankedTeams();
+  bar.innerHTML = ranked.map(({team:t, rank})=>`
+    <div class="live-chip ${rank===1 && t.score>0 ? 'leading':''}">
+      ${escapeHtml(t.name)} <span class="lp">${t.score}</span>
+    </div>`).join("");
+}
+
+function renderMenu(){
+  let html = `<div class="group-picker">`;
+  for(const key of ["A","B"]){
+    const g = DATA[key];
+    html += `<div class="group-card ${currentGroup===key?'active':''}" onclick="pickGroup('${key}')">
+      <h3>${g.label}</h3><p>${g.sub}</p>
+    </div>`;
+  }
+  html += `</div>`;
+
+  if(currentGroup){
+    const g = DATA[currentGroup];
+    html += `<p class="section-title">${g.label} — choose a round</p><div class="round-list">`;
+    g.rounds.forEach((r, idx)=>{
+      html += `<div class="round-row" onclick="openRound('${currentGroup}',${idx})">
+        <div class="left">
+          <div class="round-num">${idx+1}</div>
+          <div>
+            <h4>${r.title}</h4>
+            <div class="meta">${r.questions.length} questions <span class="divider">·</span> ${r.points} pts each <span class="divider">·</span> ${r.seconds||20}s each</div>
+          </div>
+        </div>
+        <div class="go">Start round →</div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+  return html;
+}
+
+/* ---- Fullscreen (kiosk) mode for the TV display ---- */
+function toggleFullscreen(){
+  if(!document.fullscreenElement){
+    document.documentElement.requestFullscreen().catch(()=>{});
+  } else {
+    document.exitFullscreen().catch(()=>{});
+  }
+}
+document.addEventListener("fullscreenchange", ()=>{
+  document.body.classList.toggle("is-fullscreen", !!document.fullscreenElement);
+  if(view==="present") render();
+});
+
+/* ---- Church logo (uploaded once, kept across sessions) ---- */
+function handleLogoUpload(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  if(file.size > 4*1024*1024){
+    alert("That image is quite large — please choose one under 4MB.");
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    churchLogo = ev.target.result; // base64 data URL — small enough to persist
+    updateLogoDom();
+    saveState();
+  };
+  reader.readAsDataURL(file);
+}
+function updateLogoDom(){
+  const slot = document.getElementById("logoSlot");
+  if(!slot) return;
+  slot.innerHTML = churchLogo
+    ? `<img src="${churchLogo}" alt="Church logo">`
+    : `<span class="logo-placeholder-text">+ Logo</span>`;
+}
+
+function pickGroup(key){
+  currentGroup = key;
+  render();
+}
+
+function openRound(key, idx){
+  const sameRound = (currentGroup===key && currentRoundIdx===idx);
+  clearAutoStart();
+  currentGroup = key;
+  currentRoundIdx = idx;
+  if(!sameRound) currentQIdx = 0;
+  showingInstructions = !sameRound;
+  resetTimerForCurrentQuestion();
+  syncSelectionToQuestion();
+  setView("present");
+}
+
+function renderPresent(){
+  const g = DATA[currentGroup];
+  const round = g.rounds[currentRoundIdx];
+  const total = round.questions.length;
+  const item = round.questions[currentQIdx];
+  const effPoints = getEffectivePoints(round, item);
+
+  let mediaHtml = "";
+  if(item.media){
+    if(item.media==='image' && round.type==='picture' && !revealed && item.loadedUrl){
+      mediaHtml = renderPictureClue(round, item, currentRoundIdx, currentQIdx);
+    } else {
+      let preview;
+      if(item.loadedUrl){
+        if(item.media==='image') preview = `<img src="${item.loadedUrl}">`;
+        else if(item.media==='audio') preview = `<audio src="${item.loadedUrl}" controls style="width:100%;"></audio>`;
+        else preview = `<video src="${item.loadedUrl}" controls></video>`;
+      } else {
+        preview = `<div class="placeholder">No ${item.media} loaded — add one in the Questions tab</div>`;
+      }
+      mediaHtml = `<div class="media-slot">${preview}</div>`;
+    }
+  }
+
+  let bodyHtml = "";
+  if(round.type === "sequence"){
+    const list = revealed ? item.a : item.items;
+    bodyHtml = `<ul class="seq-list ${revealed?'answered':''}">
+      ${list.map((li,i)=>`<li><span class="n">${i+1}.</span>${li}</li>`).join("")}
+    </ul>`;
+    bodyHtml = `<div class="q-text ${revealed?'revealed':''}">${item.q}</div>` + bodyHtml;
+  } else {
+    bodyHtml = `<div class="q-text ${revealed?'revealed':''}">${item.q}</div>` + mediaHtml;
+    if(round.type==='picture' && !revealed && item.loadedUrl){
+      const opened = (item.revealedSegmentIndices||[]).length;
+      bodyHtml += `<div class="clue-status">${opened===0 ? `Worth ${effPoints} pts — tap a tile to reveal a clue` : `${opened} clue${opened===1?'':'s'} revealed — now worth ${effPoints} pts`}</div>`;
+    }
+    if(revealed){
+      bodyHtml += `<div class="answer-box"><div class="answer-label">Answer</div><div class="answer-text">${item.a}</div></div>`;
+    }
+  }
+
+  const alreadyAnswered = item.answeredBy !== undefined && item.answeredBy !== null;
+  const answeredFlag = alreadyAnswered
+    ? `<div class="answered-flag">✓ Already answered ${typeof item.answeredBy==='number' ? '— awarded '+(item.awardedPoints!==undefined?item.awardedPoints:round.points)+' pts to '+escapeHtml(teams[item.answeredBy] ? teams[item.answeredBy].name : 'a team') : '— no one answered'}</div>`
+    : '';
+
+  const teamStrip = `
+    <div class="team-strip">
+      ${teams.map((t,i)=>`
+        <div class="team-chip ${selectedTeam===i?'selected':''}" onclick="selectTeam(${i})">
+          <span class="dot"></span>${escapeHtml(t.name)} <span class="pts">${t.score}</span>
+        </div>`).join("")}
+      <div class="team-chip none-chip ${selectedTeam==='NONE'?'selected':''}" onclick="selectTeam('NONE')">No one answered</div>
+    </div>
+    <div class="selection-note ${typeof selectedTeam==='number'?'set':''} ${selectedTeam==='NONE'?'none-set':''}">
+      ${typeof selectedTeam==='number'
+        ? `${escapeHtml(teams[selectedTeam].name)} will get ${effPoints} pts when you continue`
+        : selectedTeam==='NONE'
+          ? 'No points will be awarded for this question'
+          : 'Tap the team that answered, or "No one answered", to continue'}
+    </div>`;
+
+  const isLast = currentQIdx===total-1;
+  const prevAnswer = (item.answeredBy===undefined) ? null : item.answeredBy;
+  const changed = selectedTeam !== prevAnswer;
+  let nextLabel;
+  if(typeof selectedTeam==='number' && changed){
+    nextLabel = isLast ? `Award ${effPoints} & finish round` : `Award ${effPoints} & next question →`;
+  } else if(changed && alreadyAnswered){
+    nextLabel = isLast ? 'Update & finish round' : 'Update & next question →';
+  } else {
+    nextLabel = isLast ? 'Finish round' : 'Next question →';
+  }
+  const nextDisabled = selectedTeam===null;
+
+  let timerHtml = "";
+  if(!revealed){
+    const tier = getTimerTier();
+    timerHtml = `
+      <div class="timer-block tier-${tier==='done'?'red':tier}${tier==='done'?' done':''}" id="timerBlock">
+        <div class="timer-face" id="timerFace">${tier==='done' ? "Time's&nbsp;up" : timerSeconds}</div>
+        <div class="timer-bar-track"><div class="timer-bar" id="timerBar" style="width:${timerTotal>0 ? (timerSeconds/timerTotal*100) : 0}%;"></div></div>
+        <div class="timer-controls">
+          <button class="ghost-btn" id="timerToggleBtn" onclick="toggleTimer()">${timerRunning ? 'Pause' : (timerSeconds<=0 ? 'Restart' : (timerSeconds<timerTotal ? 'Resume' : 'Start Timer'))}</button>
+          <button class="ghost-btn" onclick="resetTimer()">Reset</button>
+        </div>
+      </div>`;
+  }
+
+  return `
+  <div class="present">
+    <div class="present-head">
+      <span class="back" onclick="setView('menu')">← ${g.label} · ${round.title}</span>
+      <div class="present-head-right">
+        <span class="q-count">Question ${currentQIdx+1} of ${total} <span class="divider">·</span> ${effPoints} pts</span>
+        <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Toggle fullscreen">${document.fullscreenElement ? '⤡ Exit' : '⤢ Fullscreen'}</button>
+      </div>
+    </div>
+    ${answeredFlag}
+    ${timerHtml}
+    <div class="q-body">
+      ${bodyHtml}
+      ${!revealed ? `<button class="reveal-btn" onclick="reveal()">Reveal Answer</button>` : ``}
+    </div>
+    ${teamStrip}
+    <div class="present-nav">
+      <button class="ghost-btn" onclick="prevQ()" ${currentQIdx===0?'disabled style="opacity:0.35;cursor:default;"':''}>← Previous</button>
+      <button class="reveal-btn" onclick="nextQ()" ${nextDisabled?'disabled style="opacity:0.4;cursor:default;"':''}>${nextLabel}</button>
+    </div>
+  </div>`;
+}
+
+/* Renders the picture-round clue grid: the image sits underneath, covered
+   by 4 or 9 opaque tiles. Tapping a tile reveals that patch of the image
+   and permanently reduces this question's available points. */
+function renderPictureClue(round, item, roundIdx, qIdx){
+  const segments = round.segments || 4;
+  const cols = Math.round(Math.sqrt(segments));
+  const opened = item.revealedSegmentIndices || [];
+  let tiles = "";
+  for(let i=0; i<segments; i++){
+    const isOpen = opened.includes(i);
+    tiles += isOpen
+      ? `<div class="clue-tile open"></div>`
+      : `<div class="clue-tile" onclick="revealSegment('${currentGroup}',${roundIdx},${qIdx},${i})">?</div>`;
+  }
+  return `
+  <div class="picture-clue-wrap">
+    <img class="picture-clue-img" src="${item.loadedUrl}">
+    <div class="picture-clue-grid" style="grid-template-columns:repeat(${cols},1fr);grid-template-rows:repeat(${cols},1fr);">
+      ${tiles}
+    </div>
+  </div>`;
+}
+
+function revealSegment(key, roundIdx, qIdx, tileIdx){
+  const item = DATA[key].rounds[roundIdx].questions[qIdx];
+  if(!item.revealedSegmentIndices) item.revealedSegmentIndices = [];
+  if(!item.revealedSegmentIndices.includes(tileIdx)){
+    item.revealedSegmentIndices.push(tileIdx);
+    saveState();
+    render();
+  }
+}
+
+
+function renderInstructions(){
+  const g = DATA[currentGroup];
+  const round = g.rounds[currentRoundIdx];
+  const text = (round.instructions && round.instructions.trim())
+    ? round.instructions.trim().split("\n").filter(Boolean).map(p=>`<p>${escapeHtml(p)}</p>`).join("")
+    : `<p class="instructions-empty">No special instructions set for this round — head to the Questions tab to add some, or just begin.</p>`;
+  return `
+  <div class="present instructions-view">
+    <div class="present-head">
+      <span class="back" onclick="setView('menu')">← ${g.label}</span>
+      <div class="present-head-right">
+        <span class="q-count">${round.questions.length} questions <span class="divider">·</span> ${round.points} pts each <span class="divider">·</span> ${round.seconds||20}s each</span>
+        <button class="fullscreen-btn" onclick="toggleFullscreen()" title="Toggle fullscreen">${document.fullscreenElement ? '⤡ Exit' : '⤢ Fullscreen'}</button>
+      </div>
+    </div>
+    <div class="instructions-body">
+      <div class="instructions-title">${round.title}</div>
+      <div class="instructions-text">${text}</div>
+      <button class="reveal-btn" onclick="beginRoundQuestions()">Begin Round →</button>
+    </div>
+  </div>`;
+}
+
+function beginRoundQuestions(){
+  showingInstructions = false;
+  resetTimerForCurrentQuestion();
+  syncSelectionToQuestion();
+  render();
+  scheduleAutoStart();
+}
+
+function reveal(){ clearAutoStart(); revealed = true; pauseTimer(); render(); }
+
+/* Records who answered the current question, reconciling any change in
+   score against whatever was previously recorded (so revisiting a question
+   and changing the selection never double-counts). */
+function commitAward(){
+  if(currentGroup===null || currentRoundIdx===null) return;
+  const round = DATA[currentGroup].rounds[currentRoundIdx];
+  const item = round.questions[currentQIdx];
+  if(!item) return;
+  const prev = (item.answeredBy===undefined) ? null : item.answeredBy;
+  const next = selectedTeam;
+  if(prev === next) return; // nothing changed, nothing to reconcile
+  const prevPts = (item.awardedPoints!==undefined) ? item.awardedPoints : round.points;
+  if(typeof prev === 'number' && teams[prev]) teams[prev].score -= prevPts;
+  const nextPts = getEffectivePoints(round, item);
+  if(typeof next === 'number' && teams[next]) teams[next].score += nextPts;
+  item.answeredBy = next;
+  item.awardedPoints = nextPts;
+}
+
+/* Restores revealed/selectedTeam to match whatever was already recorded
+   for the current question — used whenever we land on a question, whether
+   via Next/Previous, reopening a round, or restoring from a saved session. */
+function syncSelectionToQuestion(){
+  if(currentGroup===null || currentRoundIdx===null){ revealed=false; selectedTeam=null; return; }
+  const round = DATA[currentGroup].rounds[currentRoundIdx];
+  const item = round && round.questions[currentQIdx];
+  if(!item){ revealed=false; selectedTeam=null; return; }
+  if(item.answeredBy !== undefined && item.answeredBy !== null){
+    revealed = true;
+    selectedTeam = item.answeredBy;
+  } else {
+    revealed = false;
+    selectedTeam = null;
+  }
+}
+
+function nextQ(){
+  clearAutoStart();
+  commitAward();
+  const round = DATA[currentGroup].rounds[currentRoundIdx];
+  if(currentQIdx < round.questions.length-1){
+    currentQIdx++;
+    resetTimerForCurrentQuestion();
+    syncSelectionToQuestion();
+    render();
+    scheduleAutoStart();
+  } else {
+    pauseTimer();
+    setView("menu");
+  }
+}
+function prevQ(){
+  if(currentQIdx>0){
+    clearAutoStart();
+    commitAward();
+    currentQIdx--;
+    resetTimerForCurrentQuestion();
+    syncSelectionToQuestion();
+    render();
+  }
+}
+
+function selectTeam(val){
+  selectedTeam = (selectedTeam===val) ? null : val; // tap again to clear
+  render();
+}
+
+function loadMedia(e, key, roundIdx, qIdx, type){
+  const file = e.target.files[0];
+  if(!file) return;
+  const url = URL.createObjectURL(file);
+  DATA[key].rounds[roundIdx].questions[qIdx].loadedUrl = url;
+  render();
+}
+
+/* ===================== COUNTDOWN TIMER ===================== */
+function ensureAudio(){
+  if(!audioCtx){
+    audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  }
+  if(audioCtx.state === "suspended") audioCtx.resume();
+}
+
+function playTick(){
+  ensureAudio();
+  const tier = getTimerTier();
+  const t = audioCtx.currentTime;
+
+  let freq, vol, dur;
+  if(tier==='red'){ freq=1500; vol=0.30; dur=0.09; }
+  else if(tier==='amber'){ freq=1050; vol=0.21; dur=0.07; }
+  else { freq=740; vol=0.14; dur=0.05; }
+
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = "square";
+  osc.frequency.setValueAtTime(freq, t);
+  gain.gain.setValueAtTime(0.001, t);
+  gain.gain.exponentialRampToValueAtTime(vol, t+0.004);
+  gain.gain.exponentialRampToValueAtTime(0.001, t+dur);
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start(t); osc.stop(t+dur+0.02);
+
+  // Last few seconds get an urgent double-tick for extra tension.
+  if(tier==='red' && timerSeconds<=3){
+    const t2 = t + 0.1;
+    const osc2 = audioCtx.createOscillator();
+    const gain2 = audioCtx.createGain();
+    osc2.type = "square";
+    osc2.frequency.setValueAtTime(freq*1.2, t2);
+    gain2.gain.setValueAtTime(0.001, t2);
+    gain2.gain.exponentialRampToValueAtTime(vol*0.85, t2+0.004);
+    gain2.gain.exponentialRampToValueAtTime(0.001, t2+dur*0.8);
+    osc2.connect(gain2).connect(audioCtx.destination);
+    osc2.start(t2); osc2.stop(t2+dur+0.02);
+  }
+}
+
+function playTimeUp(){
+  ensureAudio();
+  const t = audioCtx.currentTime;
+
+  // A dramatic descending buzzer — the "time's up" game-show sound.
+  const buzz = audioCtx.createOscillator();
+  const buzzGain = audioCtx.createGain();
+  buzz.type = "sawtooth";
+  buzz.frequency.setValueAtTime(360, t);
+  buzz.frequency.exponentialRampToValueAtTime(85, t+0.7);
+  buzzGain.gain.setValueAtTime(0.001, t);
+  buzzGain.gain.exponentialRampToValueAtTime(0.32, t+0.03);
+  buzzGain.gain.exponentialRampToValueAtTime(0.0001, t+0.75);
+  buzz.connect(buzzGain).connect(audioCtx.destination);
+  buzz.start(t); buzz.stop(t+0.8);
+
+  // A low rasping undertone layered beneath it for extra weight.
+  const under = audioCtx.createOscillator();
+  const underGain = audioCtx.createGain();
+  under.type = "square";
+  under.frequency.setValueAtTime(150, t);
+  underGain.gain.setValueAtTime(0.0001, t);
+  underGain.gain.exponentialRampToValueAtTime(0.16, t+0.02);
+  underGain.gain.exponentialRampToValueAtTime(0.0001, t+0.6);
+  under.connect(underGain).connect(audioCtx.destination);
+  under.start(t); under.stop(t+0.65);
+}
+
+function resetTimerForCurrentQuestion(){
+  if(timerHandle){ clearInterval(timerHandle); timerHandle = null; }
+  timerRunning = false;
+  const round = DATA[currentGroup].rounds[currentRoundIdx];
+  timerTotal = round.seconds || 20;
+  timerSeconds = timerTotal;
+}
+
+function getTimerTier(){
+  if(timerSeconds<=0) return 'done';
+  const frac = timerTotal>0 ? timerSeconds/timerTotal : 0;
+  if(frac <= 0.2) return 'red';
+  if(frac <= 0.5) return 'amber';
+  return 'green';
+}
+
+function updateTimerDom(){
+  const face = document.getElementById("timerFace");
+  const bar = document.getElementById("timerBar");
+  const block = document.getElementById("timerBlock");
+  if(!face) return; // present view not mounted
+  const tier = getTimerTier();
+  const done = tier==='done';
+  face.innerHTML = done ? "Time's&nbsp;up" : timerSeconds;
+  if(bar) bar.style.width = (timerTotal>0 ? (timerSeconds/timerTotal*100) : 0) + "%";
+  if(block){
+    block.classList.remove("tier-green","tier-amber","tier-red");
+    block.classList.add("tier-"+(done ? "red" : tier));
+    block.classList.toggle("done", done);
+  }
+  const btn = document.getElementById("timerToggleBtn");
+  if(btn) btn.textContent = timerRunning ? "Pause" : (timerSeconds<=0 ? "Restart" : (timerSeconds<timerTotal ? "Resume" : "Start Timer"));
+}
+
+function toggleTimer(){
+  clearAutoStart();
+  if(timerRunning) pauseTimer();
+  else startTimer();
+}
+
+function startTimer(){
+  clearAutoStart();
+  ensureAudio();
+  if(timerRunning) return;
+  if(timerSeconds<=0) timerSeconds = timerTotal;
+  timerRunning = true;
+  updateTimerDom();
+  timerHandle = setInterval(()=>{
+    timerSeconds--;
+    if(timerSeconds<=0){
+      timerSeconds = 0;
+      clearInterval(timerHandle); timerHandle = null; timerRunning = false;
+      updateTimerDom();
+      playTimeUp();
+      return;
+    }
+    playTick();
+    updateTimerDom();
+  }, 1000);
+}
+
+function pauseTimer(){
+  clearAutoStart();
+  if(timerHandle){ clearInterval(timerHandle); timerHandle = null; }
+  timerRunning = false;
+  updateTimerDom();
+}
+
+function resetTimer(){
+  pauseTimer();
+  timerSeconds = timerTotal;
+  updateTimerDom();
+}
+
+/* Auto-starts the countdown 3s after "Next question" is pressed, giving
+   teams a moment to settle before it begins ticking. Cancelled by any
+   manual timer action, reveal, or navigation in the meantime. */
+function scheduleAutoStart(){
+  clearAutoStart();
+  if(revealed) return; // question already answered — no timer needed
+  autoStartHandle = setTimeout(()=>{
+    autoStartHandle = null;
+    if(!revealed && !timerRunning) startTimer();
+  }, 3000);
+}
+function clearAutoStart(){
+  if(autoStartHandle){ clearTimeout(autoStartHandle); autoStartHandle = null; }
+}
+
+function renderKeeper(){
+  let html = `
+  <div class="board-toolbar">
+    <h2>Score Keeper</h2>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <label style="font-size:12px;color:var(--muted);">teams</label>
+      <input class="pts-input hide-in-tv" type="number" min="1" max="16" value="${teams.length}"
+        onchange="setTeamCount(this.value)" style="width:52px;">
+      <button class="icon-btn hide-in-tv" onclick="resetScores()">Reset all scores</button>
+      <button class="icon-btn hide-in-tv" onclick="clearSavedData()">Start fresh</button>
+      <button class="icon-btn" onclick="toggleTv()">${tvMode?'Exit big display':'Big display'}</button>
+    </div>
+  </div>
+  <div class="board-grid">`;
+  const ranked = getRankedTeams();
+  ranked.forEach(({team:t, idx:i, rank})=>{
+    const rankClass = rank===1 ? 'rank-1' : rank===2 ? 'rank-2' : rank===3 ? 'rank-3' : 'rank-other';
+    html += `
+    <div class="team-card">
+      <div class="rank-badge ${rankClass}" title="Rank ${rank}">${toRoman(rank)}</div>
+      <button class="remove-team hide-in-tv" onclick="removeTeam(${i})" title="Remove team">×</button>
+      <div class="team-name-display">${escapeHtml(t.name)}</div>
+      <div class="team-score">${t.score}</div>
+      <div class="score-btns">
+        <button onclick="addScore(${i},5)">+5</button>
+        <button onclick="addScore(${i},10)">+10</button>
+        <button onclick="addScore(${i},20)">+20</button>
+        ${negativePenalties.map(p=>`<button class="neg" onclick="addScore(${i},-${p})">−${p}</button>`).join("")}
+      </div>
+    </div>`;
+  });
+  html += `
+    <div class="team-card add-team-card hide-in-tv" onclick="addTeam()">
+      <span>+ Add team</span>
+    </div>`;
+  html += `</div>`;
+
+  html += `
+  <div class="keeper-block hide-in-tv">
+    <h2>Negative Scoring</h2>
+    <p class="desc">Penalty amounts hosts can subtract from any team — for a wrong buzzer-in, a foul, or however you want to use them. They show up as extra buttons on every team card above.</p>
+    <div class="penalty-row">
+      ${negativePenalties.map((p,i)=>`<div class="penalty-chip">−${p}<span class="remove-chip" onclick="removeNegativePenalty(${i})" title="Remove">×</span></div>`).join("") || `<span style="color:var(--muted);font-size:13px;">No penalties defined yet</span>`}
+      <input class="penalty-add-input" type="number" min="1" step="1" id="newPenaltyInput" placeholder="e.g. 10">
+      <button class="icon-btn" onclick="addNegativePenaltyFromInput()">+ Add penalty</button>
+    </div>
+  </div>
+
+  <div class="keeper-block hide-in-tv">
+    <h2>Answer History</h2>
+    <p class="desc">Reference only — which round and question each team answered, and how many points they earned there. Team names are also renamed here. Tap a row to expand.</p>`;
+  teams.forEach((t,i)=>{
+    const entries = getTeamHistory(i);
+    const isOpen = historyOpenTeam === i;
+    const total = entries.reduce((sum,e)=>sum+e.points,0);
+    html += `
+    <div class="editor-round">
+      <div class="editor-round-head" onclick="toggleHistoryTeam(${i})">
+        <div style="flex:1;min-width:0;">
+          <input class="history-name-input" value="${escapeHtml(t.name)}" oninput="renameTeam(${i}, this.value)" onclick="event.stopPropagation()">
+          <div class="rmeta">${entries.length} question${entries.length===1?'':'s'} answered <span class="divider">·</span> ${total} pts from these</div>
+        </div>
+        <div class="go">${isOpen ? 'Close ▲' : 'View ▼'}</div>
+      </div>`;
+    if(isOpen){
+      html += `<div class="editor-round-body">`;
+      if(entries.length===0){
+        html += `<div class="ed-label" style="font-style:italic;">No questions recorded for this team yet.</div>`;
+      } else {
+        entries.forEach(e=>{
+          html += `
+          <div class="history-row">
+            <div>
+              <div class="rname" style="font-size:13.5px;">${escapeHtml(e.group)} — ${escapeHtml(e.round)}</div>
+              <div class="rmeta">Question ${e.qNum}</div>
+            </div>
+            <div class="history-pts">+${e.points}</div>
+          </div>`;
+        });
+      }
+      html += `</div>`;
+    }
+    html += `</div>`;
+  });
+  html += `</div>`;
+
+  html += `
+  <div class="keeper-block hide-in-tv">
+    <h2>Groups &amp; Rounds</h2>
+    <p class="desc">Rename either age group and any round. Points and timer length per round are set here too, and everything updates live across the quiz.</p>`;
+
+  for(const key of ["A","B"]){
+    const g = DATA[key];
+    html += `<div class="settings-group">
+      <div class="group-name-row">
+        <input class="group-label-input" value="${escapeHtml(g.label)}" onchange="setGroupLabel('${key}', this.value)">
+        <input class="group-sub-input" value="${escapeHtml(g.sub)}" onchange="setGroupSub('${key}', this.value)">
+      </div>`;
+    g.rounds.forEach((r, idx)=>{
+      html += `
+      <div class="settings-row">
+        <div style="flex:1;min-width:0;">
+          <input class="round-title-input" value="${escapeHtml(r.title)}" onchange="setRoundTitle('${key}',${idx}, this.value)">
+          <div class="rmeta">${r.questions.length} questions</div>
+        </div>
+        <div class="rctrls">
+          <label>points / q</label>
+          <input class="pts-input" type="number" min="0" step="1" value="${r.points}"
+            onchange="setRoundPoints('${key}',${idx}, this.value)">
+          <label>seconds</label>
+          <input class="pts-input" type="number" min="0" step="5" value="${r.seconds||20}"
+            onchange="setRoundSeconds('${key}',${idx}, this.value)">
+          ${r.type==='picture' ? `
+          <label>segments</label>
+          <select class="pts-input" style="width:56px;" onchange="setRoundSegments('${key}',${idx}, this.value)">
+            <option value="4" ${(!r.segments||r.segments===4)?'selected':''}>4</option>
+            <option value="9" ${r.segments===9?'selected':''}>9</option>
+          </select>
+          <label>pts / clue</label>
+          <input class="pts-input" type="number" min="0" step="1" value="${r.segmentPenalty!==undefined?r.segmentPenalty:2}"
+            onchange="setRoundSegmentPenalty('${key}',${idx}, this.value)">` : ''}
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+  html += `</div>`;
+  return html;
+}
+
+function getTeamHistory(teamIdx){
+  const out = [];
+  ["A","B"].forEach(key=>{
+    const g = DATA[key];
+    g.rounds.forEach(r=>{
+      r.questions.forEach((q,qi)=>{
+        if(q.answeredBy === teamIdx){
+          const pts = (q.awardedPoints!==undefined) ? q.awardedPoints : r.points;
+          out.push({group:g.label, round:r.title, qNum:qi+1, points:pts});
+        }
+      });
+    });
+  });
+  return out;
+}
+
+function toggleHistoryTeam(i){
+  historyOpenTeam = (historyOpenTeam===i) ? null : i;
+  render();
+}
+
+function setGroupLabel(key, val){
+  DATA[key].label = val || DATA[key].label;
+  saveState();
+  render();
+}
+function setGroupSub(key, val){
+  DATA[key].sub = val;
+  saveState();
+  render();
+}
+function setRoundTitle(key, idx, val){
+  DATA[key].rounds[idx].title = val || DATA[key].rounds[idx].title;
+  saveState();
+  render();
+}
+
+function setRoundInstructions(key, idx, val){
+  DATA[key].rounds[idx].instructions = val;
+  saveState();
+}
+
+function addNegativePenaltyFromInput(){
+  const input = document.getElementById("newPenaltyInput");
+  const n = parseInt(input.value, 10);
+  if(!n || n<=0) return;
+  if(!negativePenalties.includes(n)){
+    negativePenalties.push(n);
+    negativePenalties.sort((a,b)=>a-b);
+  }
+  input.value = "";
+  saveState();
+  render();
+}
+function removeNegativePenalty(i){
+  negativePenalties.splice(i,1);
+  saveState();
+  render();
+}
+
+/* ===================== QUESTION EDITOR ===================== */
+function escapeHtml(str){
+  return String(str==null ? "" : str)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#39;");
+}
+
+function toggleEditorRound(key, idx){
+  const k = key+"-"+idx;
+  editorOpenRound = (editorOpenRound===k) ? null : k;
+  render();
+}
+
+function renderEditor(){
+  let html = `
+  <div class="board-toolbar">
+    <h2>Question Editor</h2>
+  </div>
+  <p class="desc" style="margin-bottom:20px;">Edit, add, or remove questions for any round — changes are linked directly to that round and appear as soon as you present it.</p>`;
+
+  for(const key of ["A","B"]){
+    const g = DATA[key];
+    html += `<div class="settings-group"><h3>${g.label} <span style="color:var(--muted);font-weight:400;font-size:13px;">— ${g.sub}</span></h3>`;
+    g.rounds.forEach((r, idx)=>{
+      const rk = key+"-"+idx;
+      const isOpen = editorOpenRound === rk;
+      html += `
+      <div class="editor-round">
+        <div class="editor-round-head" onclick="toggleEditorRound('${key}',${idx})">
+          <div>
+            <div class="rname">${r.title}</div>
+            <div class="rmeta">${r.questions.length} questions <span class="divider">·</span> ${r.type}</div>
+          </div>
+          <div class="go">${isOpen ? 'Close ▲' : 'Edit ▼'}</div>
+        </div>`;
+      if(isOpen){
+        html += `<div class="editor-round-body">`;
+        html += `
+          <div class="editor-question">
+            <div class="editor-question-head"><span>Round instructions</span></div>
+            <label class="ed-label">Shown on a page before Question 1 — read this out to the group before starting</label>
+            <textarea class="ed-textarea" rows="3" onchange="setRoundInstructions('${key}',${idx},this.value)">${escapeHtml(r.instructions||"")}</textarea>
+          </div>`;
+        r.questions.forEach((q, qIdx)=>{
+          html += renderQuestionEditor(key, idx, qIdx, q, r.type);
+        });
+        html += `<button class="icon-btn add-question-btn" onclick="addQuestion('${key}',${idx})">+ Add question</button>`;
+        html += `</div>`;
+      }
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+  return html;
+}
+
+function renderQuestionEditor(key, roundIdx, qIdx, q, type){
+  let fields = "";
+  if(type === "sequence"){
+    fields = `
+      <label class="ed-label">Prompt</label>
+      <input class="ed-input" value="${escapeHtml(q.q)}" onchange="setQuestionField('${key}',${roundIdx},${qIdx},'q',this.value)">
+      <label class="ed-label">Items as shown to teams — one per line, in the shuffled order you want displayed</label>
+      <textarea class="ed-textarea" rows="4" onchange="setSequenceItems('${key}',${roundIdx},${qIdx},this.value)">${escapeHtml((q.items||[]).join("\n"))}</textarea>
+      <label class="ed-label">Correct order — one per line</label>
+      <textarea class="ed-textarea" rows="4" onchange="setSequenceAnswer('${key}',${roundIdx},${qIdx},this.value)">${escapeHtml((q.a||[]).join("\n"))}</textarea>`;
+  } else {
+    const mediaOptions = ["image","audio","video"].map(m=>
+      `<option value="${m}" ${q.media===m?'selected':''}>${m.charAt(0).toUpperCase()+m.slice(1)}</option>`
+    ).join("");
+    const mediaSel = `
+      <label class="ed-label">Media for this question</label>
+      <select class="ed-input" onchange="setQuestionMedia('${key}',${roundIdx},${qIdx},this.value)">
+        <option value="none" ${!q.media?'selected':''}>No media</option>
+        ${mediaOptions}
+      </select>`;
+    let mediaUpload = "";
+    if(q.media){
+      const accept = q.media==='image' ? 'image/*' : q.media==='audio' ? 'audio/*' : 'video/*';
+      let preview = "";
+      if(q.loadedUrl){
+        if(q.media==='image') preview = `<img src="${q.loadedUrl}">`;
+        else if(q.media==='audio') preview = `<audio src="${q.loadedUrl}" controls style="width:100%;"></audio>`;
+        else preview = `<video src="${q.loadedUrl}" controls></video>`;
+      } else {
+        preview = `<div class="placeholder">No ${q.media} loaded yet</div>`;
+      }
+      mediaUpload = `
+      <label class="ed-label">${q.media.charAt(0).toUpperCase()+q.media.slice(1)} file</label>
+      <div class="media-slot ed-media-slot">
+        ${preview}
+        <input type="file" accept="${accept}" onchange="loadMedia(event,'${key}',${roundIdx},${qIdx},'${q.media}')">
+      </div>`;
+    }
+    fields = `
+      <label class="ed-label">Question</label>
+      <textarea class="ed-textarea" rows="2" onchange="setQuestionField('${key}',${roundIdx},${qIdx},'q',this.value)">${escapeHtml(q.q)}</textarea>
+      ${mediaSel}
+      ${mediaUpload}
+      <label class="ed-label">Answer</label>
+      <textarea class="ed-textarea" rows="2" onchange="setQuestionField('${key}',${roundIdx},${qIdx},'a',this.value)">${escapeHtml(q.a)}</textarea>`;
+  }
+  return `
+  <div class="editor-question">
+    <div class="editor-question-head">
+      <span>Question ${qIdx+1}</span>
+      <button class="delete-q-btn" onclick="deleteQuestion('${key}',${roundIdx},${qIdx})" title="Delete question">×</button>
+    </div>
+    ${fields}
+  </div>`;
+}
+
+function setQuestionField(key, roundIdx, qIdx, field, val){
+  DATA[key].rounds[roundIdx].questions[qIdx][field] = val;
+  saveState();
+}
+
+function setSequenceItems(key, roundIdx, qIdx, val){
+  const arr = val.split("\n").map(s=>s.trim()).filter(Boolean);
+  DATA[key].rounds[roundIdx].questions[qIdx].items = arr;
+  saveState();
+}
+
+function setSequenceAnswer(key, roundIdx, qIdx, val){
+  const arr = val.split("\n").map(s=>s.trim()).filter(Boolean);
+  DATA[key].rounds[roundIdx].questions[qIdx].a = arr;
+  saveState();
+}
+
+function setQuestionMedia(key, roundIdx, qIdx, val){
+  const q = DATA[key].rounds[roundIdx].questions[qIdx];
+  if(val === "none"){ delete q.media; delete q.loadedUrl; }
+  else { q.media = val; delete q.loadedUrl; }
+  saveState();
+  render();
+}
+
+function addQuestion(key, roundIdx){
+  const round = DATA[key].rounds[roundIdx];
+  let newQ;
+  if(round.type === "sequence"){
+    newQ = { q:"Put these in the correct order:", items:["New event 1","New event 2","New event 3"], a:["New event 1","New event 2","New event 3"] };
+  } else if(round.type === "picture"){
+    newQ = { q:"New question", media:"image", a:"New answer" };
+  } else if(round.type === "audio" || round.type === "video"){
+    newQ = { q:"New question", media:round.type, a:"New answer" };
+  } else {
+    newQ = { q:"New question", a:"New answer" };
+  }
+  round.questions.push(newQ);
+  saveState();
+  render();
+}
+
+function deleteQuestion(key, roundIdx, qIdx){
+  if(!confirm("Delete this question? This can't be undone.")) return;
+  DATA[key].rounds[roundIdx].questions.splice(qIdx,1);
+  saveState();
+  render();
+}
+
+function setRoundPoints(key, idx, val){
+  const n = parseInt(val,10);
+  DATA[key].rounds[idx].points = isNaN(n) ? 0 : n;
+  saveState();
+}
+
+function setRoundSeconds(key, idx, val){
+  const n = parseInt(val,10);
+  DATA[key].rounds[idx].seconds = isNaN(n) ? 0 : n;
+  saveState();
+}
+
+function setRoundSegments(key, idx, val){
+  const n = parseInt(val,10);
+  DATA[key].rounds[idx].segments = (n===9) ? 9 : 4;
+  saveState();
+}
+
+function setRoundSegmentPenalty(key, idx, val){
+  const n = parseInt(val,10);
+  DATA[key].rounds[idx].segmentPenalty = isNaN(n) ? 0 : Math.max(0,n);
+  saveState();
+}
+
+function addScore(i, val){ teams[i].score += val; render(); }
+function renameTeam(i, val){ teams[i].name = val; renderLiveBar(); saveState(); }
+function resetScores(){
+  teams.forEach(t=>t.score=0);
+  ["A","B"].forEach(key=>{
+    DATA[key].rounds.forEach(r=>{
+      r.questions.forEach(q=>{
+        delete q.answeredBy;
+        delete q.awardedPoints;
+        delete q.revealedSegmentIndices;
+      });
+    });
+  });
+  syncSelectionToQuestion();
+  render();
+}
+function clearSavedData(){
+  if(!confirm("Clear all saved teams, scores and settings, and start completely fresh? This can't be undone.")) return;
+  try{ localStorage.removeItem(STORAGE_KEY); } catch(e){}
+  location.reload();
+}
+function toggleTv(){ tvMode = !tvMode; render(); }
+
+function setTeamCount(val){
+  let n = parseInt(val,10);
+  if(isNaN(n)) n = teams.length;
+  n = Math.max(1, Math.min(16, n));
+  if(n > teams.length){
+    for(let i=teams.length; i<n; i++) teams.push({name:"Team "+(i+1), score:0});
+  } else if(n < teams.length){
+    teams = teams.slice(0, n);
+    if(typeof selectedTeam==='number' && selectedTeam>=teams.length) selectedTeam = null;
+    adjustAnsweredByForTruncate(n);
+  }
+  render();
+}
+
+function addTeam(){
+  teams.push({name:"Team "+(teams.length+1), score:0});
+  render();
+}
+
+function removeTeam(i){
+  if(teams.length<=1) return;
+  teams.splice(i,1);
+  if(typeof selectedTeam==='number'){
+    if(selectedTeam===i) selectedTeam = null;
+    else if(selectedTeam>i) selectedTeam--;
+  }
+  adjustAnsweredByForRemoval(i);
+  render();
+}
+
+/* Keeps every question's recorded "answeredBy" team index in sync when
+   teams are removed or renumbered, so indicators never point at the
+   wrong team (or a team that no longer exists). */
+function adjustAnsweredByForRemoval(removedIdx){
+  ["A","B"].forEach(key=>{
+    DATA[key].rounds.forEach(r=>{
+      r.questions.forEach(q=>{
+        if(typeof q.answeredBy === 'number'){
+          if(q.answeredBy === removedIdx) delete q.answeredBy;
+          else if(q.answeredBy > removedIdx) q.answeredBy--;
+        }
+      });
+    });
+  });
+}
+function adjustAnsweredByForTruncate(newLength){
+  ["A","B"].forEach(key=>{
+    DATA[key].rounds.forEach(r=>{
+      r.questions.forEach(q=>{
+        if(typeof q.answeredBy === 'number' && q.answeredBy>=newLength) delete q.answeredBy;
+      });
+    });
+  });
+}
+
+/* ===================== PERSISTENCE ===================== */
+/* Saves teams, round point/second settings, and current position to
+   localStorage so nothing is lost on refresh or navigating away.
+   Wrapped in try/catch: in a sandboxed preview (e.g. inside Claude.ai)
+   storage may be blocked — the quiz simply keeps running in memory for
+   that session. Once this file is opened directly in a browser (the
+   normal way to run it on quiz day), saving/restoring works normally. */
+const STORAGE_KEY = "lukeGospelQuizState";
+
+function saveState(){
+  try{
+    const state = {
+      teams: teams,
+      churchLogo: churchLogo,
+      tvMode: tvMode,
+      negativePenalties: negativePenalties,
+      groups: {
+        A: {label:DATA.A.label, sub:DATA.A.sub},
+        B: {label:DATA.B.label, sub:DATA.B.sub}
+      },
+      rounds: {
+        A: DATA.A.rounds.map(r=>({
+          title:r.title, points:r.points, seconds:r.seconds, instructions:r.instructions||"", segments:r.segments, segmentPenalty:r.segmentPenalty,
+          questions: r.questions.map(q=>{
+            const clone = Object.assign({}, q);
+            delete clone.loadedUrl; // object URLs are session-only, don't persist
+            return clone;
+          })
+        })),
+        B: DATA.B.rounds.map(r=>({
+          title:r.title, points:r.points, seconds:r.seconds, instructions:r.instructions||"", segments:r.segments, segmentPenalty:r.segmentPenalty,
+          questions: r.questions.map(q=>{
+            const clone = Object.assign({}, q);
+            delete clone.loadedUrl;
+            return clone;
+          })
+        }))
+      },
+      progress: { view, currentGroup, currentRoundIdx, currentQIdx, showingInstructions }
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch(e){ /* storage unavailable — continue in-memory only */ }
+}
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+    const state = JSON.parse(raw);
+
+    if(Array.isArray(state.teams) && state.teams.length){
+      teams = state.teams.map(t=>({name:String(t.name||"Team"), score:Number(t.score)||0}));
+    }
+    if(typeof state.churchLogo === "string") churchLogo = state.churchLogo;
+    if(typeof state.tvMode === "boolean") tvMode = state.tvMode;
+    if(Array.isArray(state.negativePenalties)){
+      negativePenalties = state.negativePenalties.filter(n=>typeof n==="number" && n>0);
+    }
+
+    if(state.groups){
+      ["A","B"].forEach(key=>{
+        if(state.groups[key]){
+          if(state.groups[key].label) DATA[key].label = state.groups[key].label;
+          if(typeof state.groups[key].sub === "string") DATA[key].sub = state.groups[key].sub;
+        }
+      });
+    }
+
+    if(state.rounds){
+      ["A","B"].forEach(key=>{
+        if(state.rounds[key]){
+          state.rounds[key].forEach((r,idx)=>{
+            if(DATA[key].rounds[idx]){
+              if(r.title) DATA[key].rounds[idx].title = r.title;
+              if(typeof r.points==="number") DATA[key].rounds[idx].points = r.points;
+              if(typeof r.seconds==="number") DATA[key].rounds[idx].seconds = r.seconds;
+              if(typeof r.instructions==="string") DATA[key].rounds[idx].instructions = r.instructions;
+              if(r.segments===4 || r.segments===9) DATA[key].rounds[idx].segments = r.segments;
+              if(typeof r.segmentPenalty==="number") DATA[key].rounds[idx].segmentPenalty = r.segmentPenalty;
+              if(Array.isArray(r.questions) && r.questions.length){
+                DATA[key].rounds[idx].questions = r.questions;
+              }
+            }
+          });
+        }
+      });
+    }
+
+    if(state.progress){
+      const p = state.progress;
+      if(p.currentGroup==="A" || p.currentGroup==="B") currentGroup = p.currentGroup;
+      if(typeof p.currentRoundIdx==="number") currentRoundIdx = p.currentRoundIdx;
+      if(typeof p.currentQIdx==="number") currentQIdx = p.currentQIdx;
+      view = (p.view==="present" || p.view==="keeper" || p.view==="menu" || p.view==="editor") ? p.view : "menu";
+      showingInstructions = !!p.showingInstructions;
+      // Only resume mid-round if the round context is actually valid
+      if(view==="present" && (currentGroup===null || currentRoundIdx===null || !DATA[currentGroup].rounds[currentRoundIdx])){
+        view = "menu";
+        showingInstructions = false;
+      }
+    }
+    // Restore whether this question was already answered — shows the
+    // "already answered" indicator and pre-selects the team that got it,
+    // rather than always starting blank.
+    syncSelectionToQuestion();
+    if(view==="present") resetTimerForCurrentQuestion();
+  } catch(e){ /* corrupt or unavailable data — start fresh */ }
+}
+
+loadState();
+updateLogoDom();
+document.querySelectorAll(".tab-btn").forEach(b=>b.classList.toggle("active", b.dataset.view===view));
+render();
+</script>
+</body>
+</html>
